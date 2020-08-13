@@ -5,9 +5,6 @@ import br.com.itau.creditCard.dto.*;
 import br.com.itau.creditCard.models.CreditCard;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Component
 public class CreditCardMapper {
 
@@ -19,7 +16,6 @@ public class CreditCardMapper {
 		creditCard.setActive(false);
 
 		return creditCard;
-
 	}
 
 	public CreditCard toCreditCard(UpdateCreditCardRequest updateCreditCardRequest) {
@@ -28,7 +24,6 @@ public class CreditCardMapper {
 		creditCard.setActive(updateCreditCardRequest.isActive());
 
 		return creditCard;
-
 	}
 
 	public CreateCreditCardResponse toCreateCreditCardResponse(CreditCard creditCard){
@@ -51,7 +46,6 @@ public class CreditCardMapper {
 		getCreditCardResponse.setCustomerId(creditCard.getCustomerId());
 
 		return getCreditCardResponse;
-
 	}
 
 	public GetCreditCardActive toGetCreditCardActive(CreditCard creditCard){
@@ -62,7 +56,5 @@ public class CreditCardMapper {
 
 		return  getCreditCardActive;
 	}
-
-
 
 }

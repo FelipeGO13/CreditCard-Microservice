@@ -2,8 +2,6 @@ package br.com.itau.creditCard.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.validation.constraints.NotNull;
-
 public class GetCreditCardActive {
 
     private Long id;

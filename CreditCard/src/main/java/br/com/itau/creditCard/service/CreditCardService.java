@@ -22,13 +22,7 @@ public class CreditCardService {
 	private CustomerClient customerClient;
 	
 	public CreditCard create(CreditCard creditCard) {
-		Customer customer;
-
-		try {
-			customer = customerClient.getById(creditCard.getCustomerId());
-		} catch(FeignException.FeignClientException.NotFound e){
-			throw new CreditCardException("Cartão", "Não foi possível criar o cartão: cliente não encontrado");
-		}
+		Customer customer = customerClient.getById(creditCard.getCustomerId());
 
 		CreditCard createdCreditCard = new CreditCard();
 
@@ -52,13 +46,7 @@ public class CreditCardService {
 
 	public CreditCard getByCustomerIdAndCreditCardId(Long customerId, Long creditCardId){
 
-		Customer customer;
-
-		try {
-			customer = customerClient.getById(customerId);
-		} catch(FeignException.FeignClientException.NotFound e){
-			throw new CreditCardException("Cartão", "Não foi possível encontrar o cartão: cliente não encontrado");
-		}
+		Customer customer = customerClient.getById(customerId);
 
 		Optional<CreditCard> selectedCreditCard = creditCardRepository.findByCustomerIdAndId(customer.getId(), creditCardId);
 
