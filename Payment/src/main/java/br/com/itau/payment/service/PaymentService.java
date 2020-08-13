@@ -3,6 +3,7 @@ package br.com.itau.payment.service;
 
 import br.com.itau.payment.clients.CreditCard;
 import br.com.itau.payment.clients.CreditCardClient;
+import br.com.itau.payment.exception.PaymentException;
 import br.com.itau.payment.model.Payment;
 import br.com.itau.payment.repository.PaymentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,10 @@ public class PaymentService {
 	public Payment create(Payment payment) {
 		
 		CreditCard creditCard = creditCardClient.getById(payment.getCreditCardId());
+
+		if(!creditCard.isActive()){
+			throw new PaymentException("Pagamento", "Não é possível criar um pagamento para cartão inativo");
+		}
 		
 		Payment createdPayment = new Payment();
 

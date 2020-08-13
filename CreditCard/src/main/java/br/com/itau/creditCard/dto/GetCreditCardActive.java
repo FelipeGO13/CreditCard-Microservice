@@ -1,9 +1,12 @@
-package br.com.itau.payment.clients;
+package br.com.itau.creditCard.dto;
 
-public class CreditCard {
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+public class GetCreditCardActive {
 
     private Long id;
 
+    @JsonProperty("ativo")
     private boolean active;
 
     public Long getId() {

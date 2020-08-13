@@ -44,11 +44,17 @@ public class CreditCardService {
 		return creditCard.get();
 	}
 
-	public Iterable<CreditCard> getByCustomerId(Long customerId){
+	public CreditCard getByCustomerIdAndCreditCardId(Long customerId, Long creditCardId){
 
 		Customer customer = customerClient.getById(customerId);
 
-		return creditCardRepository.findByCustomerId(customer.getId());
+		Optional<CreditCard> selectedCreditCard = creditCardRepository.findByCustomerIdAndId(customer.getId(), creditCardId);
+
+		if(!selectedCreditCard.isPresent()) {
+			throw new CreditCardException("Cartão", "Cartão não encontrado");
+		}
+
+		return selectedCreditCard.get();
 	}
 
 	public CreditCard update(String number, CreditCard creditCard) {
@@ -72,6 +78,22 @@ public class CreditCardService {
 		}
 
 		return creditCard.get();
+	}
+
+
+	public CreditCard isActive(Long id){
+		Optional<CreditCard> selectedCreditCard = creditCardRepository.findById(id);
+
+		if(!selectedCreditCard.isPresent()) {
+			throw new CreditCardException("Cartão", "Cartão não encontrado");
+		}
+
+		CreditCard creditCard = new CreditCard();
+
+		creditCard.setId(selectedCreditCard.get().getId());
+		creditCard.setActive(selectedCreditCard.get().isActive());
+
+		return creditCard;
 	}
 
 

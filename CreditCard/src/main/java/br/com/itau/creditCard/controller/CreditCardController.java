@@ -50,9 +50,14 @@ public class CreditCardController {
 		return creditCardService.getById(id);
 	}
 
-	@GetMapping("cliente/{clienteId}")
-	public GetCreditCardByCustomerIdResponse getByCustomerId(@PathVariable("clienteId") Long customerId){
-		return creditCardMapper.toGetCreditCardByCustomerIdResponse(creditCardService.getByCustomerId(customerId));
+	@GetMapping("/{id}/ativo")
+	public GetCreditCardActive isActive(@PathVariable Long id){
+		return creditCardMapper.toGetCreditCardActive(creditCardService.isActive(id));
+	}
+
+	@GetMapping("cliente/{cliente_id}/{cartao_id}")
+	public GetCreditCardResponse getByCustomerIdAndCreditCardId(@PathVariable("cliente_id") Long customerId, @PathVariable("cartao_id") Long creditCardId){
+		return creditCardMapper.toGetCreditCardResponse(creditCardService.getByCustomerIdAndCreditCardId(customerId, creditCardId));
 	}
 
 

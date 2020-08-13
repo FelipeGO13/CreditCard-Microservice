@@ -7,5 +7,5 @@ import java.util.Optional;
 
 public interface CreditCardRepository extends CrudRepository<CreditCard, Long>{
 	Optional<CreditCard> findByNumber(String number);
-	Iterable<CreditCard> findByCustomerId(Long customerId);
+	Optional<CreditCard> findByCustomerIdAndId(Long customerId, Long creditCardId);
 }

@@ -10,4 +10,7 @@ public interface CreditCardClient {
     @GetMapping("/cartao/id/{id}")
     CreditCard getById(@PathVariable Long id);
 
+    @GetMapping("/{id}/ativo")
+    CreditCard isActive(@PathVariable Long id);
+
 }
