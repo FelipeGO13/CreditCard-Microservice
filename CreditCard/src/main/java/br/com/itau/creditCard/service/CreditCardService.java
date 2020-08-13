@@ -6,6 +6,7 @@ import br.com.itau.creditCard.clients.CustomerClient;
 import br.com.itau.creditCard.exception.CreditCardException;
 import br.com.itau.creditCard.models.CreditCard;
 import br.com.itau.creditCard.repository.CreditCardRepository;
+import feign.FeignException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,8 +22,13 @@ public class CreditCardService {
 	private CustomerClient customerClient;
 	
 	public CreditCard create(CreditCard creditCard) {
-		
-		Customer customer = customerClient.getById(creditCard.getCustomerId());
+		Customer customer;
+
+		try {
+			customer = customerClient.getById(creditCard.getCustomerId());
+		} catch(FeignException.FeignClientException.NotFound e){
+			throw new CreditCardException("Cartão", "Não foi possível criar o cartão: cliente não encontrado");
+		}
 
 		CreditCard createdCreditCard = new CreditCard();
 
@@ -46,7 +52,13 @@ public class CreditCardService {
 
 	public CreditCard getByCustomerIdAndCreditCardId(Long customerId, Long creditCardId){
 
-		Customer customer = customerClient.getById(customerId);
+		Customer customer;
+
+		try {
+			customer = customerClient.getById(customerId);
+		} catch(FeignException.FeignClientException.NotFound e){
+			throw new CreditCardException("Cartão", "Não foi possível encontrar o cartão: cliente não encontrado");
+		}
 
 		Optional<CreditCard> selectedCreditCard = creditCardRepository.findByCustomerIdAndId(customer.getId(), creditCardId);
 
