@@ -35,7 +35,6 @@ public class CreditCardController {
 		CreditCard updatedCreditCard = creditCardService.update(number, creditCardMapper.toCreditCard(updateCreditCardRequest));
 
 		return creditCardMapper.toCreateCreditCardResponse(updatedCreditCard);
-
 	}
 
 	@GetMapping("/{numero}")
@@ -60,5 +59,11 @@ public class CreditCardController {
 		return creditCardMapper.toGetCreditCardResponse(creditCardService.getByCustomerIdAndCreditCardId(customerId, creditCardId));
 	}
 
+	@PatchMapping("/{id}/desativar")
+	public CreateCreditCardResponse expireCreditCard(@PathVariable Long id) {
+		CreditCard updatedCreditCard = creditCardService.expire(id);
+
+		return creditCardMapper.toCreateCreditCardResponse(updatedCreditCard);
+	}
 
 }

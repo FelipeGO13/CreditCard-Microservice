@@ -39,7 +39,12 @@ public class PaymentService {
 		CreditCard creditCard = creditCardClient.getById(creditCardId);
 		
 		return paymentRepository.findByCreditCardId(creditCard.getId());
-		
 	}
-	
+
+	public Iterable<Payment> deleteByCreditCardId(Long creditCardId){
+		CreditCard creditCard = creditCardClient.getById(creditCardId);
+
+		return paymentRepository.deleteByCreditCardId(creditCard.getId());
+	}
+
 }

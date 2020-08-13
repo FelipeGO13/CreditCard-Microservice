@@ -96,6 +96,17 @@ public class CreditCardService {
 		return creditCard;
 	}
 
+	public CreditCard expire(Long id) {
 
+		Optional<CreditCard> creditCard = creditCardRepository.findById(id);
+
+		if(!creditCard.isPresent()) {
+			throw new CreditCardException("Cartão", "Cartão não encontrado");
+		}
+
+		creditCard.get().setActive(false);
+
+		return creditCardRepository.save(creditCard.get());
+	}
 
 }

@@ -10,5 +10,5 @@ public interface PaymentRepository extends CrudRepository<Payment, Long>{
 	Iterable<Payment> findByCreditCardId(Long creditCardId);
 
 	@Transactional
-	Iterable<Payment> deleteByCreditCardId(int creditCardId);
+	Iterable<Payment> deleteByCreditCardId(Long creditCardId);
 }

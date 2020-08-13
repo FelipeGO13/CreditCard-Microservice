@@ -36,4 +36,10 @@ public class PaymentController {
         return paymentMapper.toPaymentList(paymentService.getByCreditCardId(creditCardId));
     }
 
+    @DeleteMapping("/pagamentos/{id_cartao}")
+    public Iterable<CreatePaymentResponse> deletePayments(@PathVariable(name = "id_cartao") Long creditCardId){
+        return paymentMapper.toPaymentList(paymentService.deleteByCreditCardId(creditCardId));
+    }
+
+
 }
