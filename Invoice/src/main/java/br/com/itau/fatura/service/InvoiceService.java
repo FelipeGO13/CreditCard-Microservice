@@ -1,9 +1,9 @@
 package br.com.itau.fatura.service;
 
-import br.com.itau.fatura.clients.CreditCard;
-import br.com.itau.fatura.clients.CreditCardClient;
-import br.com.itau.fatura.clients.Payment;
-import br.com.itau.fatura.clients.PaymentClient;
+import br.com.itau.fatura.clients.creditCard.CreditCard;
+import br.com.itau.fatura.clients.creditCard.CreditCardClient;
+import br.com.itau.fatura.clients.payment.Payment;
+import br.com.itau.fatura.clients.payment.PaymentClient;
 import br.com.itau.fatura.exception.InvoiceException;
 import br.com.itau.fatura.model.Invoice;
 import feign.FeignException;

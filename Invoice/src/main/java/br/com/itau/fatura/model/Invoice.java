@@ -1,7 +1,7 @@
 package br.com.itau.fatura.model;
 
 
-import br.com.itau.fatura.clients.Payment;
+import br.com.itau.fatura.clients.payment.Payment;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

@@ -1,6 +1,6 @@
 package br.com.itau.fatura.dto.mapper;
 
-import br.com.itau.fatura.clients.Payment;
+import br.com.itau.fatura.clients.payment.Payment;
 import br.com.itau.fatura.dto.ExpireCardResponse;
 import br.com.itau.fatura.dto.GetInvoiceResponse;
 import br.com.itau.fatura.dto.CreatePaymentResponse;

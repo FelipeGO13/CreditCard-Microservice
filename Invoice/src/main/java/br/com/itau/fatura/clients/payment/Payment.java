@@ -1,4 +1,4 @@
-package br.com.itau.fatura.clients;
+package br.com.itau.fatura.clients.payment;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
