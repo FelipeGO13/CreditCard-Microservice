@@ -9,6 +9,7 @@ public class CreatePaymentResponse {
 
 	private Long id;
 
+
 	@JsonProperty("cartao_id")
 	private Long creditCardId;
 
