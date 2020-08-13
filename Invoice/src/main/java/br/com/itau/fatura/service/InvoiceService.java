@@ -4,7 +4,9 @@ import br.com.itau.fatura.clients.CreditCard;
 import br.com.itau.fatura.clients.CreditCardClient;
 import br.com.itau.fatura.clients.Payment;
 import br.com.itau.fatura.clients.PaymentClient;
+import br.com.itau.fatura.exception.InvoiceException;
 import br.com.itau.fatura.model.Invoice;
+import feign.FeignException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +24,13 @@ public class InvoiceService {
 
 
     public Invoice getByCustomerIdAndCreditCardId(Long customerId, Long creditCardId){
-        CreditCard creditCard = creditCardClient.getByCustomerIdAndCreditCardId(customerId, creditCardId);
+        CreditCard creditCard;
+
+        try{
+            creditCard = creditCardClient.getByCustomerIdAndCreditCardId(customerId, creditCardId);
+        } catch (FeignException.FeignClientException.NotFound e) {
+            throw new InvoiceException("Fatura", "Não foi possível encontrar fatura: cartão não encontrado");
+        }
 
         Iterable<Payment> paymentList = paymentClient.getByCreditCardId(creditCard.getId());
 
@@ -34,7 +42,13 @@ public class InvoiceService {
     }
 
     public Invoice payInvoice(Long customerId, Long creditCardId){
-        CreditCard creditCard = creditCardClient.getByCustomerIdAndCreditCardId(customerId, creditCardId);
+        CreditCard creditCard;
+
+        try{
+            creditCard = creditCardClient.getByCustomerIdAndCreditCardId(customerId, creditCardId);
+        } catch (FeignException.FeignClientException.NotFound e) {
+            throw new InvoiceException("Fatura", "Não foi possível encontrar fatura: cartão não encontrado");
+        }
 
         Iterable<Payment> paymentList = paymentClient.deletePayments(creditCard.getId());
 
@@ -54,7 +68,13 @@ public class InvoiceService {
     }
 
     public String expireCreditCard(Long customerId, Long creditCardId){
-        CreditCard creditCard = creditCardClient.getByCustomerIdAndCreditCardId(customerId, creditCardId);
+        CreditCard creditCard;
+
+        try{
+            creditCard = creditCardClient.getByCustomerIdAndCreditCardId(customerId, creditCardId);
+        } catch (FeignException.FeignClientException.NotFound e) {
+            throw new InvoiceException("Fatura", "Não foi possível encontrar fatura: cartão não encontrado");
+        }
 
         creditCardClient.expireCreditCard(creditCard.getId());
 
