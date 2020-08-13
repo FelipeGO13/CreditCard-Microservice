@@ -54,17 +54,6 @@ public class CreditCardMapper {
 
 	}
 
-	public Iterable<GetCreditCardResponse> toGetCreditCardByCustomerIdResponse(Iterable<CreditCard> creditCards){
-		GetCreditCardByCustomerIdResponse getCreditCardByCustomerIdResponse = new GetCreditCardByCustomerIdResponse();
-		List<GetCreditCardResponse> getCreditCardResponseList = new ArrayList<>();
-
-		for(CreditCard c: creditCards){
-			getCreditCardResponseList.add(toGetCreditCardResponse(c));
-		}
-
-		return getCreditCardResponseList;
-	}
-
 	public GetCreditCardActive toGetCreditCardActive(CreditCard creditCard){
 		GetCreditCardActive getCreditCardActive = new GetCreditCardActive();
 
