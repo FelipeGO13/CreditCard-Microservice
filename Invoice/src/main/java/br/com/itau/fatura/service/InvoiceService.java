@@ -24,13 +24,7 @@ public class InvoiceService {
 
 
     public Invoice getByCustomerIdAndCreditCardId(Long customerId, Long creditCardId){
-        CreditCard creditCard;
-
-        try{
-            creditCard = creditCardClient.getByCustomerIdAndCreditCardId(customerId, creditCardId);
-        } catch (FeignException.FeignClientException.NotFound e) {
-            throw new InvoiceException("Fatura", "Não foi possível encontrar fatura: cartão não encontrado");
-        }
+        CreditCard creditCard = creditCardClient.getByCustomerIdAndCreditCardId(customerId, creditCardId);
 
         Iterable<Payment> paymentList = paymentClient.getByCreditCardId(creditCard.getId());
 
@@ -42,13 +36,7 @@ public class InvoiceService {
     }
 
     public Invoice payInvoice(Long customerId, Long creditCardId){
-        CreditCard creditCard;
-
-        try{
-            creditCard = creditCardClient.getByCustomerIdAndCreditCardId(customerId, creditCardId);
-        } catch (FeignException.FeignClientException.NotFound e) {
-            throw new InvoiceException("Fatura", "Não foi possível encontrar fatura: cartão não encontrado");
-        }
+        CreditCard creditCard = creditCardClient.getByCustomerIdAndCreditCardId(customerId, creditCardId);
 
         Iterable<Payment> paymentList = paymentClient.deletePayments(creditCard.getId());
 
@@ -68,13 +56,7 @@ public class InvoiceService {
     }
 
     public String expireCreditCard(Long customerId, Long creditCardId){
-        CreditCard creditCard;
-
-        try{
-            creditCard = creditCardClient.getByCustomerIdAndCreditCardId(customerId, creditCardId);
-        } catch (FeignException.FeignClientException.NotFound e) {
-            throw new InvoiceException("Fatura", "Não foi possível encontrar fatura: cartão não encontrado");
-        }
+        CreditCard creditCard = creditCardClient.getByCustomerIdAndCreditCardId(customerId, creditCardId);
 
         creditCardClient.expireCreditCard(creditCard.getId());
 
