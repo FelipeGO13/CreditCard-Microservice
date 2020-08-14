@@ -10,6 +10,8 @@ import feign.FeignException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.stream.StreamSupport;
+
 @Service
 public class PaymentService {
 
@@ -38,13 +40,25 @@ public class PaymentService {
 	public Iterable<Payment> getByCreditCardId(Long creditCardId){
 		CreditCard creditCard = creditCardClient.getById(creditCardId);
 
-		return paymentRepository.findByCreditCardId(creditCard.getId());
+		Iterable<Payment> payments = paymentRepository.findByCreditCardId(creditCard.getId());
+
+		if(StreamSupport.stream(payments.spliterator(), false).count() == 0){
+			throw new PaymentException("Pagamento", "Não existem pagamentos registrados");
+		}
+
+		return payments;
 	}
 
 	public Iterable<Payment> deleteByCreditCardId(Long creditCardId){
 		CreditCard creditCard = creditCardClient.getById(creditCardId);
 
-		return paymentRepository.deleteByCreditCardId(creditCard.getId());
+		Iterable<Payment> payments = paymentRepository.deleteByCreditCardId(creditCard.getId());
+
+		if(StreamSupport.stream(payments.spliterator(), false).count() == 0){
+			throw new PaymentException("Pagamento", "Não existem pagamentos registrados");
+		}
+
+		return payments;
 	}
 
 }
