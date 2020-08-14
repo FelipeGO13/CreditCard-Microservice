@@ -1,12 +1,12 @@
 package br.com.itau.fatura.service;
 
+import br.com.itau.fatura.clients.customer.Customer;
+import br.com.itau.fatura.clients.customer.CustomerClient;
 import br.com.itau.fatura.clients.creditCard.CreditCard;
 import br.com.itau.fatura.clients.creditCard.CreditCardClient;
 import br.com.itau.fatura.clients.payment.Payment;
 import br.com.itau.fatura.clients.payment.PaymentClient;
-import br.com.itau.fatura.exception.InvoiceException;
 import br.com.itau.fatura.model.Invoice;
-import feign.FeignException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,9 +22,13 @@ public class InvoiceService {
     @Autowired
     private CreditCardClient creditCardClient;
 
+    @Autowired
+    private CustomerClient customerClient;
 
     public Invoice getByCustomerIdAndCreditCardId(Long customerId, Long creditCardId){
-        CreditCard creditCard = creditCardClient.getByCustomerIdAndCreditCardId(customerId, creditCardId);
+        Customer customer = customerClient.getById(customerId);
+
+        CreditCard creditCard = creditCardClient.getByCustomerIdAndCreditCardId(customer.getId(), creditCardId);
 
         Iterable<Payment> paymentList = paymentClient.getByCreditCardId(creditCard.getId());
 
@@ -36,7 +40,9 @@ public class InvoiceService {
     }
 
     public Invoice payInvoice(Long customerId, Long creditCardId){
-        CreditCard creditCard = creditCardClient.getByCustomerIdAndCreditCardId(customerId, creditCardId);
+        Customer customer = customerClient.getById(customerId);
+
+        CreditCard creditCard = creditCardClient.getByCustomerIdAndCreditCardId(customer.getId(), creditCardId);
 
         Iterable<Payment> paymentList = paymentClient.deletePayments(creditCard.getId());
 
@@ -56,7 +62,9 @@ public class InvoiceService {
     }
 
     public String expireCreditCard(Long customerId, Long creditCardId){
-        CreditCard creditCard = creditCardClient.getByCustomerIdAndCreditCardId(customerId, creditCardId);
+        Customer customer = customerClient.getById(customerId);
+
+        CreditCard creditCard = creditCardClient.getByCustomerIdAndCreditCardId(customer.getId(), creditCardId);
 
         creditCardClient.expireCreditCard(creditCard.getId());
 
