@@ -1,4 +1,4 @@
-package br.com.itau.creditCard;
+package br.com.itau.invoice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -8,10 +8,10 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @SpringBootApplication
 @EnableFeignClients
 @RibbonClients(defaultConfiguration = RibbonConfiguration.class)
-public class CreditCardApplication {
+public class InvoiceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(CreditCardApplication.class, args);
+		SpringApplication.run(InvoiceApplication.class, args);
 	}
 
 }

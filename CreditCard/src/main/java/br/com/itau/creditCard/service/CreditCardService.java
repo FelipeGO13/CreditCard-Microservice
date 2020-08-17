@@ -6,7 +6,6 @@ import br.com.itau.creditCard.clients.CustomerClient;
 import br.com.itau.creditCard.exception.CreditCardException;
 import br.com.itau.creditCard.models.CreditCard;
 import br.com.itau.creditCard.repository.CreditCardRepository;
-import feign.FeignException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
