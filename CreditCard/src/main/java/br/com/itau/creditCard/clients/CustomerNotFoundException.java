@@ -4,7 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(code = HttpStatus.NOT_FOUND)
-public class CostumerNotFoundException extends RuntimeException{
+public class CustomerNotFoundException extends RuntimeException{
 
     private static final long serialVersionUID = 1L;
 
@@ -14,7 +14,7 @@ public class CostumerNotFoundException extends RuntimeException{
         return atributo;
     }
 
-    public CostumerNotFoundException(String atributo, String message) {
+    public CustomerNotFoundException(String atributo, String message) {
         super(message);
         this.atributo = atributo;
     }
